@@ -15,8 +15,6 @@ require __DIR__."/lib/mysql.php";
 //加载数据库配置文件
 $db_config = require __DIR__."/config/db_config.php";
 $mysql = new mysql($db_config);
-$_POST['user_name'] = 'admin';
-$_POST['user_password'] = '123456';
 $data['user_name'] = $_POST['user_name'];
 $data['user_password'] = md5($_POST['user_password'].'djhh#@22**hh777&');
 $data['create_time'] = date('Y-m-d H:i:s');
