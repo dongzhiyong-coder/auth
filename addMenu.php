@@ -19,6 +19,7 @@ $data['menu_name'] = $_POST['menu_name'];
 $data['parent_menu_id'] = $_POST['parent_menu_id'];
 $data['layer'] = $_POST['layer'];
 $data['menu_router'] = $_POST['menu_router'];
+$data['menu_params'] = $_POST['menu_params'];
 try {
     $res = $mysql->table('pc_menu')->insert($data);
     if($res>0){
