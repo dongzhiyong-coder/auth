@@ -17,6 +17,7 @@ $db_config = require __DIR__."/config/db_config.php";
 $mysql = new mysql($db_config);
 $data['permission_name'] = $_POST['permission_name'];
 $data['permission_router'] = $_POST['permission_router'];
+$data['permission_params'] = $_POST['permission_params'];
 try {
     $res = $mysql->table('pc_permission')->insert($data);
     if($res>0){
