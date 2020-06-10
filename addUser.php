@@ -25,24 +25,14 @@ try {
     }
     if(empty($data['user_password'])){
         show_json('3','密码不能为空');
-
     }
-
-    $where=[
-        'user_name'=>$data['user_name'],
-        'user_password'=>$data['user_password']
-    ];
-
+    $where=['user_name'=>$data['user_name'],];
     $res_user=$mysql->table('pc_user')->where($where)->find();
-
-    if (empty($res_user)){
-        $res = $mysql->table('pc_user')->insert($data);
-        show_json('0','插入成功');
-    } else {
-
+    if (!empty($res_user)){
         show_json('1','用户名已存在！');
     }
-
+    $res = $mysql->table('pc_user')->insert($data);
+    show_json('0','插入成功');
 }
 catch (\Exception $e){
         show_json(500,$e->getMessage());
