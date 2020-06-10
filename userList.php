@@ -15,6 +15,7 @@ require __DIR__."/lib/mysql.php";
 $db_config = require __DIR__."/config/db_config.php";
 
 $mysql = new mysql($db_config);
-$res = $mysql->table('pc_user')->field('user_id,user_name,user_status,create_time')->where("user_id=1")->order('create_time desc')->select();
 
-p($res);
+$res = $mysql->table('pc_user')->field('user_id,user_name,user_status,create_time')->order('create_time desc')->select();
+
+show_json('','ok',$res);
