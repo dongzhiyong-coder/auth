@@ -10,10 +10,26 @@ Target Server Type    : MYSQL
 Target Server Version : 50726
 File Encoding         : 65001
 
-Date: 2020-06-10 13:51:45
+Date: 2020-06-10 14:41:49
 */
 
 SET FOREIGN_KEY_CHECKS=0;
+
+-- ----------------------------
+-- Table structure for `pc_menu`
+-- ----------------------------
+DROP TABLE IF EXISTS `pc_menu`;
+CREATE TABLE `pc_menu` (
+  `menu_id` int(10) NOT NULL AUTO_INCREMENT COMMENT '主键',
+  `menu_name` varchar(20) NOT NULL COMMENT '菜单名称',
+  `parent_menu_id` int(10) NOT NULL COMMENT '父菜单id',
+  `layer` tinyint(1) NOT NULL COMMENT '层级 0是第一层 1是第二层 2是第三层',
+  PRIMARY KEY (`menu_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of pc_menu
+-- ----------------------------
 
 -- ----------------------------
 -- Table structure for `pc_role`
@@ -23,13 +39,17 @@ CREATE TABLE `pc_role` (
   `role_id` int(11) NOT NULL AUTO_INCREMENT COMMENT '主键',
   `role_name` varchar(30) NOT NULL COMMENT '角色名称',
   PRIMARY KEY (`role_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of pc_role
 -- ----------------------------
-INSERT INTO `pc_role` VALUES ('1', '超级管理员');
-INSERT INTO `pc_role` VALUES ('2', '开发经理');
+INSERT INTO `pc_role` VALUES ('1', '运营');
+INSERT INTO `pc_role` VALUES ('2', '超级管理员');
+INSERT INTO `pc_role` VALUES ('3', '系统管理员');
+INSERT INTO `pc_role` VALUES ('4', '财务');
+INSERT INTO `pc_role` VALUES ('5', '销售');
+INSERT INTO `pc_role` VALUES ('6', '客户');
 
 -- ----------------------------
 -- Table structure for `pc_user`
@@ -43,12 +63,13 @@ CREATE TABLE `pc_user` (
   `create_time` datetime DEFAULT NULL COMMENT '创建时间',
   `updated_time` datetime DEFAULT NULL COMMENT '更新时间',
   PRIMARY KEY (`user_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of pc_user
 -- ----------------------------
-INSERT INTO `pc_user` VALUES ('1', 'admin', '123456', '1', '2020-06-10 13:36:57', null);
+INSERT INTO `pc_user` VALUES ('2', 'admin', 'ba73c4032d3fafa25a3d2226e5326417', '1', '2020-06-10 14:16:14', null);
+INSERT INTO `pc_user` VALUES ('3', 'test', 'ba73c4032d3fafa25a3d2226e5326417', '1', '2020-06-10 14:26:57', null);
 
 -- ----------------------------
 -- Table structure for `pc_user_role`
@@ -59,10 +80,8 @@ CREATE TABLE `pc_user_role` (
   `role_id` int(10) NOT NULL COMMENT '角色id',
   `user_id` int(10) NOT NULL COMMENT '用户id',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of pc_user_role
 -- ----------------------------
-INSERT INTO `pc_user_role` VALUES ('1', '1', '1');
-INSERT INTO `pc_user_role` VALUES ('2', '2', '1');
