@@ -19,13 +19,30 @@ $data['user_name'] = $_POST['user_name'];
 $data['user_password'] = md5($_POST['user_password'].'djhh#@22**hh777&');
 $data['create_time'] = date('Y-m-d H:i:s');
 try {
-    $res = $mysql->table('pc_user')->insert($data);
-    if($res>0){
-        show_json('','ok');
+
+    if(empty($data['user_name'])){
+        show_json('2','用户名不能为空');
     }
-    else{
-        show_json(500,'系统错误');
+    if(empty($data['user_password'])){
+        show_json('3','密码不能为空');
+
     }
+
+    $where=[
+        'user_name'=>$data['user_name'],
+        'user_password'=>$data['user_password']
+    ];
+
+    $res_user=$mysql->table('pc_user')->where($where)->find();
+
+    if (empty($res_user)){
+        $res = $mysql->table('pc_user')->insert($data);
+        show_json('0','插入成功');
+    } else {
+
+        show_json('1','用户名已存在！');
+    }
+
 }
 catch (\Exception $e){
         show_json(500,$e->getMessage());
