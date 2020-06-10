@@ -24,19 +24,22 @@ try {
         'user_password'=>$data['user_password']
     ];
 
-    $where_user['user_name']=$data['user_name'];
+    $res_user=$mysql->table('pc_user')->where($where)->find();
 
 
-    $res_user = $mysql->table('pc_user')->where($where_user)->find();
-    $res_pass=$mysql->table('pc_user')->where($where)->find();
+    if(empty($data['user_name'])){
+        show_json('2','用户名不能为空');
+    }
+    if(empty($data['user_password'])){
+        show_json('3','密码不能为空');
 
+    }
     if (empty($res_user)){
         $res = $mysql->table('pc_user')->insert($data);
         show_json('0','插入成功');
-    }
+    } else {
 
-    if (!empty($res_pass)){
-        show_json('1','用户已存在');
+        show_json('1','用户名已存在！');
     }
 
 }
