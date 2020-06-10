@@ -30,7 +30,7 @@ try {
         $row = [];
         $row['role_id'] = $role_id;
         $row['user_id'] = $_POST['user_id'];
-        $mysql->table('pc_user_role')->insert($data);
+        $mysql->table('pc_user_role')->insert($row);
     }
     show_json(200, '设置成功');
 
