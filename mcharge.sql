@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50726
 File Encoding         : 65001
 
-Date: 2020-06-10 15:28:30
+Date: 2020-06-10 17:34:37
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -24,21 +24,13 @@ CREATE TABLE `pc_menu` (
   `menu_name` varchar(20) NOT NULL COMMENT '菜单名称',
   `parent_menu_id` int(10) NOT NULL COMMENT '父菜单id',
   `layer` tinyint(1) NOT NULL COMMENT '层级 0是第一层 1是第二层 2是第三层',
+  `menu_router` varchar(50) DEFAULT NULL COMMENT '菜单路由',
   PRIMARY KEY (`menu_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of pc_menu
 -- ----------------------------
-INSERT INTO `pc_menu` VALUES ('1', '系统管理', '0', '0');
-INSERT INTO `pc_menu` VALUES ('2', '用户管理', '1', '1');
-INSERT INTO `pc_menu` VALUES ('3', '角色管理', '1', '1');
-INSERT INTO `pc_menu` VALUES ('4', '权限管理', '1', '1');
-INSERT INTO `pc_menu` VALUES ('5', '菜单管理', '0', '0');
-INSERT INTO `pc_menu` VALUES ('6', '订单管理', '0', '0');
-INSERT INTO `pc_menu` VALUES ('7', '国泰订单', '6', '1');
-INSERT INTO `pc_menu` VALUES ('8', '京东订单', '6', '1');
-INSERT INTO `pc_menu` VALUES ('9', '华为订单', '6', '1');
 
 -- ----------------------------
 -- Table structure for `pc_permission`
@@ -49,14 +41,11 @@ CREATE TABLE `pc_permission` (
   `permission_name` varchar(30) NOT NULL COMMENT '权限名称',
   `permission_router` varchar(50) NOT NULL COMMENT '权限路由格式为 控制器名/方法名',
   PRIMARY KEY (`permission_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of pc_permission
 -- ----------------------------
-INSERT INTO `pc_permission` VALUES ('1', '后台首页', 'index/index');
-INSERT INTO `pc_permission` VALUES ('2', '订单首页', 'order/index');
-INSERT INTO `pc_permission` VALUES ('3', '订单新增', 'order/add');
 
 -- ----------------------------
 -- Table structure for `pc_role`
@@ -77,6 +66,36 @@ INSERT INTO `pc_role` VALUES ('3', '系统管理员');
 INSERT INTO `pc_role` VALUES ('4', '财务');
 INSERT INTO `pc_role` VALUES ('5', '销售');
 INSERT INTO `pc_role` VALUES ('6', '客户');
+
+-- ----------------------------
+-- Table structure for `pc_role_menu`
+-- ----------------------------
+DROP TABLE IF EXISTS `pc_role_menu`;
+CREATE TABLE `pc_role_menu` (
+  `rm_id` int(11) NOT NULL AUTO_INCREMENT COMMENT '主键',
+  `role_id` int(10) NOT NULL COMMENT '角色id',
+  `menu_id` int(10) NOT NULL COMMENT '菜单id',
+  PRIMARY KEY (`rm_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of pc_role_menu
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for `pc_role_permission`
+-- ----------------------------
+DROP TABLE IF EXISTS `pc_role_permission`;
+CREATE TABLE `pc_role_permission` (
+  `rp_id` int(11) NOT NULL AUTO_INCREMENT COMMENT '主键',
+  `role_id` int(10) NOT NULL COMMENT '角色id',
+  `permission_id` int(10) NOT NULL COMMENT '权限id',
+  PRIMARY KEY (`rp_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT;
+
+-- ----------------------------
+-- Records of pc_role_permission
+-- ----------------------------
 
 -- ----------------------------
 -- Table structure for `pc_user`
