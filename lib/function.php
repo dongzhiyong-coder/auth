@@ -10,3 +10,11 @@ function p($data){
     echo json_encode($data);
     die;
 }
+
+function show_json($code=200,$msg='',$data=[]){
+    $arr['code'] = $code;
+    $arr['msg'] = $msg;
+    $arr['data'] = $data;
+    echo json_encode($arr);
+    die;
+}
