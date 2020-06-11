@@ -24,6 +24,11 @@ if(empty($user)){
 if(md5($_POST['user_password'].'djhh#@22**hh777&')!=$user['user_password']){
     show_json('500','密码错误');
 }
+/**
+ * 
+ */
+//用户登录后 需要把他持有的菜单返回给前端页面做显示
+
 show_json('200','登录成功');
 
 
